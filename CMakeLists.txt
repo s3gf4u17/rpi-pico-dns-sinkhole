@@ -14,7 +14,7 @@ project(${APP_NAME} C CXX ASM)
 
 pico_sdk_init()
 
-add_executable(${APP_NAME} main.c source/flash.c)
+add_executable(${APP_NAME} main.c source/flash.c source/block.c)
 
 pico_set_program_name(${APP_NAME} "${APP_NAME}")
 
