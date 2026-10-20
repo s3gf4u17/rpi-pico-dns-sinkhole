@@ -5,6 +5,7 @@
 #include "lwip/netif.h"
 #include "lwip/ip4_addr.h"
 #include "flash.h"
+#include "dns.h"
 
 int initialize_networking() {
     const flash_config_t *config = flash_get_config();
@@ -35,6 +36,7 @@ int initialize_networking() {
         return -1;
     }
     printf("Pico IP: %s\n", ip4addr_ntoa(netif_ip4_addr(netif_list)));
+    return 0;
 }
 
 int run_udp_server() {
@@ -57,11 +59,13 @@ int run_udp_server() {
         return -1;
     }
 
-    // udp_recv(server, ..., NULL);
+    udp_recv(server, dns_message_handler, NULL);
 
     cyw43_arch_lwip_end();
 
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, true);
+
+    return 0;
 }
 
 int main() {
