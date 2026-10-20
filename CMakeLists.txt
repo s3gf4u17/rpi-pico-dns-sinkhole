@@ -14,7 +14,9 @@ project(${APP_NAME} C CXX ASM)
 
 pico_sdk_init()
 
-add_executable(${APP_NAME} main.c source/flash.c source/block.c)
+add_executable(${APP_NAME} main.c source/flash.c source/block.c source/dns.c)
+
+target_compile_options(${APP_NAME} PRIVATE $<$<COMPILE_LANGUAGE:C>:-O2>)
 
 pico_set_program_name(${APP_NAME} "${APP_NAME}")
 
